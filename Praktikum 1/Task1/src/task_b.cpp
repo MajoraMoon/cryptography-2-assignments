@@ -1,47 +1,90 @@
 #include "task.h"
 
+/**
+ *
+ * C.1 Universelle Faelschung von RSA-Signaturen:
+ *
+ *
+ * (b) Implementieren Sie die universelle F¨alschung von RSA Signaturen
+ * (vgl. Folie 19 der Vorlesung). W¨ahlen Sie hierf¨ur eine beliebige
+ * Nachricht. Nehmen Sie bei der universellen F¨alschung sowohl
+ * die Rolle des Angreifers als auch die des Signierers (Orakel) ein.
+ * Pruefen Sie mit dem RSA-Verifikationsalgorithmus, dass die so
+ * berechneten RSA-Signaturen korrekt verifiziert werden.
+ */
+
+/**
+ *
+ * We take the role of the attacker and the role of the oracle.
+ *
+ * The public key consists  out of (n, e) and the private key consists out of
+ * (p,q,d).
+ *
+ * Universal Forgery: An attacker can produce a valid signature s for a chosen
+ * message m, without knowing the private key directly.
+ *
+ * The attacker choses a random number r, calcualtes m and gets the signature s'
+ * for m' from the oracle. Then the attacker can calculate the signatur s for m
+ * out of s'.
+ */
+
 using namespace Botan;
 
 void execute_task_1_b() {
+
   AutoSeeded_RNG rng;
 
-  // 1. RSA-Schlüssel erzeugen
-  RSA_PrivateKey private_key(rng, 2048);
-  RSA_PublicKey public_key = private_key;
+  // key generation
+  RSA_PrivateKey private_key(rng, 3000);
 
-  BigInt n = public_key.get_n();
-  BigInt e = public_key.get_e();
+  // important data preperation for calcuations
+  // public parameters
+  BigInt n = private_key.get_n(); // -> here its n = p * q
+  BigInt e = private_key.get_e();
+  // private parameter
   BigInt d = private_key.get_d();
 
-  // 2. Nachricht m
-  BigInt m("42");
+  // Choosing a message
+  BigInt m("98765432123456789");
 
-  // 3. Zufällige invertierbare Zahl r (mit gcd(r, n) = 1)
+  // choose a big integer r with r^e mod n ≠ 1
   BigInt r;
+  BigInt r_e_mod_n;
+
   do {
     r = BigInt::random_integer(rng, 2, n - 1);
-  } while (gcd(r, n) != 1);
 
-  // 4. m' = r^e * m mod n
-  BigInt m_prime = power_mod(r, e, n) * m % n;
+    r_e_mod_n = power_mod(r, e, n);
+  } while (r_e_mod_n == 1);
 
-  // 5. Signatur vom Orakel (eigentlich m'^d mod n)
+  // define  m' as: m' = (r^e * m) mod n
+  BigInt m_prime = (r_e_mod_n * m) % n;
+
+  /**
+   * the oracle (which knows the private key) signs m', so it calculates
+   * s' = (m')^d mod n
+   */
   BigInt s_prime = power_mod(m_prime, d, n);
 
-  // 6. Berechne s = r^-1 * s' mod n
+  // The attacker now calculates: s = r⁻¹ · s' mod n.
+  // Because: s' = (r^e · m)^d = r^(e·d) · m^d mod n
   BigInt r_inv = inverse_mod(r, n);
-  BigInt s = r_inv * s_prime % n;
+  BigInt s = (r_inv * s_prime) % n;
 
-  // 7. Verifikation: s^e mod n == m?
+  // verification:  m ≡ s^e mod n
   BigInt verified = power_mod(s, e, n);
 
-  std::cout << "Original message:   " << m << std::endl;
-  std::cout << "Forged signature:   " << s << std::endl;
-  std::cout << "Verification result: " << verified << std::endl;
+  std::cout << "public component n: " << n << "\n";
+  std::cout << "public component e: " << e << "\n\n";
+
+  std::cout << "message m: " << m << "\n\n";
+  std::cout << "sigature s' (m'^d mod n): " << s_prime << "\n\n";
+  std::cout << "calculated fake signature s (r^-1 * s' mod n): " << s << "\n\n";
+  std::cout << "verification: s^e mod n = " << verified << "\n\n";
 
   if (verified == m) {
-    std::cout << "✅ Signature successfully forged and verified!" << std::endl;
+    std::cout << "Verification successful. Fake signature is valid!\n";
   } else {
-    std::cout << "❌ Verification failed!" << std::endl;
+    std::cout << "Verification failed.\n";
   }
 }
