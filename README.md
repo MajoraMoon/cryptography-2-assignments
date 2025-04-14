@@ -1,4 +1,4 @@
-# Botan Cryptography Example (C++)
+# Just assigments for university	
 
 This Code uses the [Botan](https://botan.randombit.net/) cryptography library in C++ for implementing cryptographic operations.
 
