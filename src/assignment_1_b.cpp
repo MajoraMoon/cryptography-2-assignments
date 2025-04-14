@@ -30,7 +30,7 @@
 
 using namespace Botan;
 
-void execute_task_1_b() {
+void execute_assignment_1_b() {
 
   AutoSeeded_RNG rng;
 
@@ -74,17 +74,22 @@ void execute_task_1_b() {
   // verification:  m ≡ s^e mod n
   BigInt verified = power_mod(s, e, n);
 
-  std::cout << "public component n: " << n << "\n";
-  std::cout << "public component e: " << e << "\n\n";
+  std::cout << "\n\n\n\n\n\n\n\n\n\n\n\nAufgabe 1 b)"
+            << "\n";
 
-  std::cout << "message m: " << m << "\n\n";
-  std::cout << "sigature s' (m'^d mod n): " << s_prime << "\n\n";
-  std::cout << "calculated fake signature s (r^-1 * s' mod n): " << s << "\n\n";
-  std::cout << "verification: s^e mod n = " << verified << "\n\n";
+  std::cout << "öffentliche Komponente n: " << n << "\n";
+  std::cout << "öffentliche Komponente e: " << e << "\n\n";
+
+  std::cout << "Nachricht m: " << m << "\n\n";
+  std::cout << "Signatur s' (m'^d mod n): " << s_prime << "\n\n";
+  std::cout << "Berechnete gefälschte Signatur s (r^-1 * s' mod n): " << s
+            << "\n\n";
+  std::cout << "Verifikation: s^e mod n = " << verified << "\n\n";
 
   if (verified == m) {
-    std::cout << "Verification successful. Fake signature is valid!\n";
+    std::cout << "Verifikation erfolgreich. Die "
+                 "Gefälschte Signatur ist valide\n";
   } else {
-    std::cout << "Verification failed.\n";
+    std::cout << "Verifikation gescheitert.\n";
   }
 }

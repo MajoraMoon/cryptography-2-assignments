@@ -12,7 +12,7 @@
  * das angeht, auch wenn die Aufgaben auf deutsch sind)
  */
 
-void execute_task_1_a() {
+void execute_assignment_1_a() {
 
   // random number generator
   Botan::AutoSeeded_RNG rng;
@@ -32,6 +32,8 @@ void execute_task_1_a() {
   // generates RSA Private Key object
   Botan::RSA_PrivateKey private_key(rng, 3000);
 
+  std::cout << "Aufgabe 1 a)"
+            << "\n";
   // getting the private key information through getter
   std::cout << "Modulus (n): " << private_key.get_n() << "\n\n";
   std::cout << "Oeffentlicher Exponent (e): " << private_key.get_e() << "\n\n";

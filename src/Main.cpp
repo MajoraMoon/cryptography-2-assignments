@@ -15,9 +15,19 @@
 
 int main(int argc, char const *argv[]) {
   // Aufgabe 1 - a
-  execute_task_1_a();
+  execute_assignment_1_a();
 
   // Aufgabe 1 - b
-  execute_task_1_b();
+  execute_assignment_1_b();
+
+  // Aufgabe 2 - a
+  execute_assignment_2_a();
+
+  // Aufgabe 2 - b
+  execute_assignemt_2_b();
+
+  // Aufgabe 2 - c
+  execute_assignemt_2_c();
+
   return 0;
 }
