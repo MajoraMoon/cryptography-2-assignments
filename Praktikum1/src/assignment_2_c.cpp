@@ -107,12 +107,12 @@ void execute_assignemt_2_c() {
   Botan::BigInt a_recovered = ((delta1 * k_recovered - H1) % q) * gamma_inv % q;
 
   // Ausgabe der Ergebnisse
-  std::cout << "Originaler privater Schlüssel:\n" << a.to_hex_string() << "\n";
-  std::cout << "Berechneter privater Schlüssel:\n"
+  std::cout << "Originaler privater Schluessel:\n" << a.to_hex_string() << "\n";
+  std::cout << "Berechneter privater Schluessel:\n"
             << a_recovered.to_hex_string() << "\n";
 
   if (a_recovered == a) {
-    std::cout << "Schlüssel korrekt rekonstruiert!\n";
+    std::cout << "Schluessel korrekt rekonstruiert!\n";
   } else {
     std::cout << "Falsche Rekonstruktion!\n";
   }

@@ -77,18 +77,18 @@ void execute_assignment_1_b() {
   std::cout << "\n\n\n\n\n\n\n\n\n\n\n\nAufgabe 1 b)"
             << "\n";
 
-  std::cout << "öffentliche Komponente n: " << n << "\n";
-  std::cout << "öffentliche Komponente e: " << e << "\n\n";
+  std::cout << "Oeffentliche Komponente n: " << n << "\n";
+  std::cout << "Oeffentliche Komponente e: " << e << "\n\n";
 
   std::cout << "Nachricht m: " << m << "\n\n";
   std::cout << "Signatur s' (m'^d mod n): " << s_prime << "\n\n";
-  std::cout << "Berechnete gefälschte Signatur s (r^-1 * s' mod n): " << s
+  std::cout << "Berechnete gefaelschte Signatur s (r^-1 * s' mod n): " << s
             << "\n\n";
   std::cout << "Verifikation: s^e mod n = " << verified << "\n\n";
 
   if (verified == m) {
     std::cout << "Verifikation erfolgreich. Die "
-                 "Gefälschte Signatur ist valide\n";
+                 "Gefaelschte Signatur ist valide\n";
   } else {
     std::cout << "Verifikation gescheitert.\n";
   }

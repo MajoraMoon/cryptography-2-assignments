@@ -65,10 +65,10 @@ void execute_assignment_2_a() {
   Botan::BigInt a = Botan::BigInt::random_integer(rng, 1, q - 1);
   Botan::BigInt beta = Botan::power_mod(alpha, a, p);
   std::cout << "\n\n\n\n\n\n\n\n\n\n\n\nAufgabe 2 a)" << "\n";
-  std::cout << "DSA-Schlüsselparameter:\n"
+  std::cout << "DSA-Schluesselparameter:\n"
             << "p: " << p.to_hex_string() << "\n\n"
             << "q: " << q.to_hex_string() << "\n\n"
             << "α: " << alpha.to_hex_string() << "\n\n"
-            << "Privater Schlüssel a: " << a.to_hex_string() << "\n\n"
-            << "Öffentlicher Schlüssel : " << beta.to_hex_string() << "\n";
+            << "Privater Schluessel a: " << a.to_hex_string() << "\n\n"
+            << "Oeffentlicher Schluessel : " << beta.to_hex_string() << "\n";
 }
